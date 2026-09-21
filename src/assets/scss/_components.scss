@@ -1,0 +1,173 @@
+@use "mixins" as *;
+
+// Components — one block per section of the page, in page order.
+
+.intro {
+    &__text {
+        font-family: var(--font-serif);
+        font-size: var(--font-size-intro);
+        letter-spacing: var(--letter-spacing-serif);
+        line-height: 1.15;
+    }
+}
+
+.steps {
+    &__list {
+        display: grid;
+        gap: var(--space-3xs);
+        counter-reset: step;
+    }
+
+    &__item {
+        counter-increment: step;
+
+        &::before {
+            content: counter(step, decimal-leading-zero) ". ";
+        }
+    }
+}
+
+.contact {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-2xs);
+
+    &__link {
+        display: inline-block;
+        padding: var(--space-xs);
+        border: var(--border-width) solid var(--color-text);
+        border-radius: var(--radius-pill);
+        font-size: var(--font-size-s);
+        text-decoration: none;
+
+        // Swaps text and background, so it inverts in either theme.
+        &:hover {
+            color: var(--color-background);
+            background-color: var(--color-text);
+        }
+    }
+}
+
+.projects {
+    $block: &;
+
+    &__list {
+        display: grid;
+        gap: var(--space-2xs);
+    }
+
+    &__link {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: var(--space-xs);
+
+        // An underline here would reach the date too, and no child can
+        // undo it, so the name re-adds its own.
+        text-decoration: none;
+
+        // Set by the Gallery on the open project.
+        &--active #{$block}__name::before {
+            display: block;
+        }
+
+        // Name and date stack, each as wide as its own text.
+        @include mobile {
+            grid-template-columns: 1fr;
+            justify-items: start;
+            row-gap: var(--space-3xs);
+        }
+    }
+
+    &__name {
+        @include with-icon;
+        text-decoration: underline;
+        text-decoration-thickness: var(--border-width);
+        text-underline-offset: 0.15em;
+
+        &::before {
+            @include mask-icon("/icons/pin.svg", var(--icon-size-m));
+            display: none;
+            flex-shrink: 0;
+        }
+    }
+
+    &__separator {
+        height: 1px;
+        border: 1px dashed var(--color-muted);
+
+        @include mobile {
+            display: none;
+        }
+    }
+
+    &__date {
+        @include mobile {
+            color: var(--color-muted);
+        }
+    }
+}
+
+.project {
+    // Hidden until the file lands, then faded in by LazyLoad's class.
+    &__image {
+        width: 100%;
+        opacity: 0;
+        transition: opacity var(--duration-fade) ease-out;
+
+        &--loaded {
+            opacity: 1;
+        }
+    }
+
+    &__link {
+        @include external-link;
+    }
+}
+
+.social {
+    &__item::before {
+        content: "—";
+        margin-right: var(--space-xs);
+    }
+
+    &__list {
+        display: grid;
+        gap: var(--space-2xs);
+    }
+
+    &__link {
+        @include external-link;
+    }
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+
+    @include mobile {
+        flex-direction: column;
+        align-items: start;
+        gap: var(--space-3xs);
+    }
+
+    &__link {
+        @include external-link;
+    }
+
+    &__divider {
+        width: var(--border-width);
+        height: 1em;
+        background-color: var(--color-muted);
+
+        @include mobile {
+            display: none;
+        }
+    }
+}
+
+#age {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+}

@@ -1,0 +1,52 @@
+// Mixins — outputs no CSS of its own.
+
+$breakpoint-mobile: 768px;
+
+@mixin mobile {
+    @media (max-width: $breakpoint-mobile) {
+        @content;
+    }
+}
+
+@mixin dark {
+    @media (prefers-color-scheme: dark) {
+        @content;
+    }
+}
+
+// Monochrome SVG icon, for a pseudo-element.
+@mixin mask-icon($url, $size, $color: currentColor) {
+    content: "";
+    width: $size;
+    height: $size;
+    background-color: $color;
+    -webkit-mask: url($url) center / contain no-repeat;
+    mask: url($url) center / contain no-repeat;
+}
+
+// Inline row that sits an icon next to its text.
+@mixin with-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--icon-gap);
+}
+
+@mixin underline {
+    text-decoration: underline;
+    text-decoration-thickness: var(--border-width);
+    text-underline-offset: 0.15em;
+}
+
+// Link followed by an arrow pointing out of the page.
+@mixin external-link {
+    @include with-icon;
+    @include underline;
+
+    &::after {
+        @include mask-icon(
+            "/icons/external-arrow.svg",
+            var(--icon-size-s),
+            var(--color-muted)
+        );
+    }
+}

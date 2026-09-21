@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>One-page personal page</title>
+    </head>
+    <body>
+        <div class="layout">
+            <div class="intro">
+                <p class="intro__text">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Deserunt quas, exercitationem
+                    <em>modi doloribus voluptas</em> neque odio autem minus quos
+                    dolores recusandae labore quod. Minima porro
+                    <em>ullam expedita</em> culpa. Consequatur, ducimus. Rem
+                    perspiciatis tempora praesentium voluptas eveniet minima
+                    assumenda id illo nulla aperiam dolores necessitatibus
+                    labore amet hic.
+                </p>
+            </div>
+
+            <section class="section steps">
+                <h2 class="section__title">How to get started</h2>
+                <ol class="steps__list" role="list">
+                    {{#each steps}}
+                    <li class="steps__item">{{this}}</li>
+                    {{/each}}
+                </ol>
+
+                <div class="contact">
+                    <a
+                        class="contact__link"
+                        href="mailto:{{site.email}}"
+                        aria-live="polite"
+                    >
+                        Work with me
+                    </a>
+                </div>
+            </section>
+
+            <section class="section manifesto">
+                <h2 class="section__title">Some background</h2>
+                <p class="manifesto__text">
+                    My name is {{site.name}}, and I am
+                    <span id="age" data-age="{{site.age}}"></span> years old.
+                    Amet consectetur adipisicing elit. Deserunt, aspernatur
+                    necessitatibus? Eum dignissimos rem blanditiis nesciunt
+                    illum praesentium, maxime dolore explicabo tempore
+                    laudantium nisi quam, accusamus aliquid inventore cumque
+                    mollitia tenetur iusto corporis necessitatibus ratione
+                    perferendis dolorem quis.
+                </p>
+                <p class="manifesto__text">
+                    Aliquam, dignissimos voluptatum? Nemo id voluptates ex
+                    dolores assumenda. Sit ab eaque quae architecto! Iusto
+                    maxime dolorem inventore animi delectus hic modi aliquid non
+                    aut magni corporis numquam corrupti amet et, nemo ex illum
+                    ut possimus doloribus ea eius iste perspiciatis. Neque
+                    dolores sunt quos facilis ratione aut a accusamus mollitia
+                    modi quas. Architecto error eum accusantium nisi quod
+                    dolores, expedita ullam.
+                </p>
+            </section>
+
+            <section class="section projects">
+                <h1 class="section__title">Selected projects</h1>
+                <ul class="projects__list" role="list">
+                    {{#each projects}} {{> projects-item}} {{/each}}
+                </ul>
+            </section>
+
+            {{#each projects}} {{> project}} {{/each}}
+
+            <section class="section social">
+                <h2 class="section__title">Other places</h2>
+                <ul class="social__list" role="list">
+                    {{#each socials}}
+                    <li class="social__item">
+                        <a class="social__link" href="{{url}}" target="_blank"
+                            >{{wording}}</a
+                        >
+                    </li>
+                    {{/each}}
+                </ul>
+            </section>
+
+            <footer class="footer">
+                <p class="footer__credit">
+                    Built with
+                    <a class="footer__link" href="https://vite.dev/guide/" rel="noopener" target="_blank">Vite</a>
+                    and
+                    <a class="footer__link" href="https://handlebarsjs.com/" rel="noopener" target="_blank">Handlebars</a>
+                </p>
+                <span class="footer__divider" aria-hidden="true"></span>
+                <p class="footer__updated">
+                    Last updated:
+                    <time class="footer__date" datetime="{{buildDate}}">{{formatDate buildDate}}</time>
+                </p>
+            </footer>
+        </div>
+
+        <script type="module" src="assets/js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,92 @@
+// Reset — strips browser defaults without flattening semantics.
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    // 62.5% of the 16px default → 1rem = 10px, while browser font-size
+    // settings and zoom keep working.
+    font-size: 62.5%;
+    scroll-padding-top: 3.2rem;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    // dvh first fails on old browsers, so vh stays as the fallback.
+    min-height: 100vh;
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+// Hides an image until lazy loading gives it a source.
+img:not([src]):not([srcset]) {
+    visibility: hidden;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+a {
+    color: inherit;
+}
+
+p,
+:is(h1, h2, h3, h4, h5, h6) {
+    overflow-wrap: break-word;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+    line-height: 1.2;
+    text-wrap: balance;
+}
+
+// Lists lose their markers where the role is spelled out in the markup.
+ul[role="list"],
+ol[role="list"] {
+    list-style: none;
+    padding: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

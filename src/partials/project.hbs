@@ -1,0 +1,35 @@
+<section class="section project" id="project-{{path}}" aria-label="{{name}}">
+    {{#each images}}
+        {{!-- One picture at two widths: srcset, not media, so resizing
+              reuses the file already loaded. --}}
+        <picture class="project__picture">
+            <source
+                type="image/avif"
+                sizes="{{@root.imageSizes}}"
+                data-srcset="{{desktop}}.avif 1800w, {{mobile}}.avif 900w"
+            >
+            <source
+                type="image/webp"
+                sizes="{{@root.imageSizes}}"
+                data-srcset="{{desktop}}.webp 1800w, {{mobile}}.webp 900w"
+            >
+            <img
+                class="project__image"
+                alt="{{alt}}"
+                decoding="async"
+                sizes="{{@root.imageSizes}}"
+                data-src="{{mobile}}.jpg"
+                data-srcset="{{desktop}}.jpg 1800w, {{mobile}}.jpg 900w"
+                draggable="false"
+            >
+        </picture>
+    {{/each}}
+
+    <p class="project__description">{{description}}</p>
+
+    {{#if liveUrl}}
+        <a class="project__link" href="{{liveUrl}}" rel="noopener" target="_blank">
+            Visit live project
+        </a>
+    {{/if}}
+</section>

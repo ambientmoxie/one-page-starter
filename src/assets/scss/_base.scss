@@ -1,0 +1,92 @@
+@use "mixins" as *;
+
+// Base — design tokens and element defaults.
+
+:root {
+    color-scheme: light dark;
+
+    // Colours
+    --color-background: #ffffff;
+    --color-text: #040404;
+    --color-muted: #9d9d9d;
+
+    // Fonts
+    --font-sans: "Inter", sans-serif;
+    --font-serif: "Spectral", serif;
+
+    // em, so the tightening scales with whatever size it is set on.
+    --letter-spacing-serif: -0.04em;
+
+    // Font sizes (1rem = 10px, see _reset.scss)
+    --font-size-s: 1.8rem;
+    --font-size-m: 2rem;
+    --font-size-l: 4rem;
+    --font-size-xl: 5rem;
+    --font-size-intro: var(--font-size-l);
+
+    // Spacing
+    --space-3xs: 0.3rem;
+    --space-2xs: 0.7rem;
+    --space-xs: 1.5rem;
+    --space-s: 2rem;
+    --space-m: 4rem;
+    --space-l: 12rem;
+    --space-xl: 17rem;
+
+    // Motion
+    --duration-fade: 200ms;
+
+    // Borders
+    --border-width: 0.15rem;
+    --radius-pill: 50px;
+
+    // Icons (em: scales with the text they sit next to)
+    --icon-gap: 0.35em;
+    --icon-size-s: 1.2rem;
+    --icon-size-m: 2rem;
+
+    // Layout — changing this (or the body padding below) means updating
+    // IMAGE_SIZES in assets/vite/handlebars-context.js.
+    --layout-max-width: 75rem;
+
+    // Anything reading these tokens follows the overrides on its own.
+    @include dark {
+        --color-background: #1e1e1e;
+        --color-text: #dedede;
+    }
+
+    @include mobile {
+        --font-size-l: 3.5rem;
+        --font-size-xl: 4rem;
+        --font-size-intro: 3rem;
+        --space-m: 3rem;
+        --space-l: 10rem;
+    }
+}
+
+body {
+    padding: var(--space-xl) var(--space-s) var(--space-m);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-m);
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+
+h1,
+h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: var(--letter-spacing-serif);
+}
+
+h1 {
+    font-size: var(--font-size-xl);
+}
+
+h2 {
+    font-size: var(--font-size-l);
+}
+
+em {
+    @include underline;
+}

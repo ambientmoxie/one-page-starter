@@ -1,0 +1,11 @@
+<li class="projects__item">
+    <a class="projects__link" href="#project-{{path}}">
+        <span class="projects__name">{{name}}</span>
+        <span class="projects__separator" aria-hidden="true"></span>
+        {{#if date}}
+            <time class="projects__date" datetime="{{date}}">
+                {{formatDate date}}
+            </time>
+        {{/if}}
+    </a>
+</li>

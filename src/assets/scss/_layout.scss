@@ -1,0 +1,15 @@
+// Layout — page frame and the rhythm between its parts.
+
+.layout {
+    max-width: var(--layout-max-width);
+    margin-inline: auto;
+
+    > :not(:last-child) {
+        margin-bottom: var(--space-l);
+    }
+}
+
+.section {
+    display: grid;
+    gap: var(--space-m);
+}

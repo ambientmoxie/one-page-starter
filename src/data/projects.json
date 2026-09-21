@@ -1,0 +1,77 @@
+[
+    {
+        "name": "Vivamus sagittis lacus augue",
+        "type": "mix",
+        "date": "2026-06-12",
+        "path": "project-1",
+        "liveUrl": "https://example.com",
+        "description": "Quisque facilisis varius hendrerit. Phasellus velit metus, porta sit amet semper et, ullamcorper quis nisl. Sed dui eros, euismod at vulputate vel, viverra vitae nulla. Praesent justo velit, gravida id lacus non, dictum commodo mauris. In dui leo, pellentesque vitae egestas id, eleifend malesuada nisl. Proin dignissim facilisis dolor ut congue. ",
+        "images": [
+            {
+                "alt": "",
+                "desktop": "/images/resized/project-1/desktop/project-1",
+                "mobile": "/images/resized/project-1/mobile/project-1"
+            }
+        ]
+    },
+    {
+        "name": "Nullam quis risus eget urna mollis ornare vel",
+        "type": "mix",
+        "date": "2026-03-04",
+        "path": "project-2",
+        "liveUrl": "https://example.com",
+        "description": "Quisque facilisis varius hendrerit. Phasellus velit metus, porta sit amet semper et, ullamcorper quis nisl. Sed dui eros, euismod at vulputate vel, viverra vitae nulla. Praesent justo velit, gravida id lacus non, dictum commodo mauris. In dui leo, pellentesque vitae egestas id, eleifend malesuada nisl. Proin dignissim facilisis dolor ut congue. ",
+        "images": [
+            {
+                "alt": "",
+                "desktop": "/images/resized/project-2/desktop/project-2",
+                "mobile": "/images/resized/project-2/mobile/project-2"
+            }
+        ]
+    },
+    {
+        "name": "Donec ullamcorper nulla metus",
+        "type": "dev",
+        "date": "2025-11-19",
+        "path": "project-3",
+        "liveUrl": "https://example.com",
+        "description": "Quisque facilisis varius hendrerit. Phasellus velit metus, porta sit amet semper et, ullamcorper quis nisl. Sed dui eros, euismod at vulputate vel, viverra vitae nulla. Praesent justo velit, gravida id lacus non, dictum commodo mauris. In dui leo, pellentesque vitae egestas id, eleifend malesuada nisl. Proin dignissim facilisis dolor ut congue. ",
+        "images": [
+            {
+                "alt": "",
+                "desktop": "/images/resized/project-3/desktop/project-3",
+                "mobile": "/images/resized/project-3/mobile/project-3"
+            }
+        ]
+    },
+    {
+        "name": "Maecenas faucibus mollis leo",
+        "type": "dev",
+        "date": "2025-09-02",
+        "path": "project-4",
+        "liveUrl": "https://example.com",
+        "description": "Quisque facilisis varius hendrerit. Phasellus velit metus, porta sit amet semper et, ullamcorper quis nisl. Sed dui eros, euismod at vulputate vel, viverra vitae nulla. Praesent justo velit, gravida id lacus non, dictum commodo mauris. In dui leo, pellentesque vitae egestas id, eleifend malesuada nisl. Proin dignissim facilisis dolor ut congue. ",
+        "images": [
+            {
+                "alt": "",
+                "desktop": "/images/resized/project-4/desktop/project-4",
+                "mobile": "/images/resized/project-4/mobile/project-4"
+            }
+        ]
+    },
+    {
+        "name": "Fusce dapibus tellus ac cursus commodo",
+        "type": "mix",
+        "date": "2025-05-27",
+        "path": "project-5",
+        "liveUrl": "https://example.com",
+        "description": "Quisque facilisis varius hendrerit. Phasellus velit metus, porta sit amet semper et, ullamcorper quis nisl. Sed dui eros, euismod at vulputate vel, viverra vitae nulla. Praesent justo velit, gravida id lacus non, dictum commodo mauris. In dui leo, pellentesque vitae egestas id, eleifend malesuada nisl. Proin dignissim facilisis dolor ut congue. ",
+        "images": [
+            {
+                "alt": "",
+                "desktop": "/images/resized/project-5/desktop/project-5",
+                "mobile": "/images/resized/project-5/mobile/project-5"
+            }
+        ]
+    }
+]
