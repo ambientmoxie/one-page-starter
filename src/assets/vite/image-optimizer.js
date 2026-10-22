@@ -6,6 +6,9 @@ import sharp from "sharp";
 const SIZES = [
     { w: 1800, dir: "desktop" },
     { w: 900, dir: "mobile" },
+    // Tiny stand-in shown blurred until lazy loading swaps in the real
+    // image, when site.json's "imageBlur" is true.
+    { w: 32, dir: "placeholder" },
 ];
 
 // Output formats, each with its sharp encoder.
@@ -29,7 +32,7 @@ const SOURCE_EXTS = [
 // IMAGE OPTIMIZER
 // ------------------------------------------------------------
 // Vite plugin that runs at build time to process every source image.
-// Reads <sourceDir>/**, writes each image in two sizes and three formats to
+// Reads <sourceDir>/**, writes each image in three sizes and three formats to
 // <outputDir>/<same subfolders>/<size>/, mirroring the source structure.
 // An image is re-encoded only when its source is newer than its outputs.
 // Once everything is generated, each project's image paths are written back
@@ -55,11 +58,19 @@ export default function imageOptimizer({
 
             // Folder name -> the basenames generated for it.
             const generated = {};
+            // "<folder>/<basename>" -> its dominant colour (CSS rgb()) and
+            // source dimensions, so the frame holds its shape before loading.
+            const details = {};
 
             for (const image of images) {
                 const { dir, name } = path.parse(image);
                 (generated[dir] ??= []).push(name);
                 const source = path.join(sourceDir, image);
+
+                // shortcut: reads every source on each build, cache it if builds get slow.
+                const [{ dominant: { r, g, b } }, { width, height }] =
+                    await Promise.all([sharp(source).stats(), sharp(source).metadata()]);
+                details[`${dir}/${name}`] = { color: `rgb(${r}, ${g}, ${b})`, width, height };
 
                 for (const { w, dir: size } of SIZES) {
                     const target = path.join(outputDir, dir, size);
@@ -78,7 +89,7 @@ export default function imageOptimizer({
                 }
             }
 
-            writeProjectPaths({ generated, publicPath, projectsFile });
+            writeProjectPaths({ generated, details, publicPath, projectsFile });
         },
     };
 }
@@ -93,7 +104,7 @@ function isFresh(source, output) {
 
 // Replace each project's "images" with the paths just generated for it,
 // keeping any alt text already written against the same filename.
-function writeProjectPaths({ generated, publicPath, projectsFile }) {
+function writeProjectPaths({ generated, details, publicPath, projectsFile }) {
     const before = fs.readFileSync(projectsFile, "utf8");
     const projects = JSON.parse(before);
 
@@ -109,6 +120,8 @@ function writeProjectPaths({ generated, publicPath, projectsFile }) {
             alt: previousAlt[name] ?? "",
             desktop: `${publicPath}/${project.path}/desktop/${name}`,
             mobile: `${publicPath}/${project.path}/mobile/${name}`,
+            placeholder: `${publicPath}/${project.path}/placeholder/${name}`,
+            ...details[`${project.path}/${name}`],
         }));
     }
 

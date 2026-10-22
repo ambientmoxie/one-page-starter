@@ -109,7 +109,18 @@
 }
 
 .project {
-    // Hidden until the file lands, then faded in by LazyLoad's class.
+    // Block so its dominant-colour background fills the image's frame.
+    &__picture {
+        display: block;
+
+        // Blurred placeholder instead: the frame keeps the blur from
+        // bleeding past the edges, the slight zoom hides its soft rim.
+        &--blur {
+            overflow: hidden;
+        }
+    }
+
+    // Hidden over its colour until the file lands, then faded in by LazyLoad's class.
     &__image {
         width: 100%;
         opacity: 0;
@@ -117,6 +128,20 @@
 
         &--loaded {
             opacity: 1;
+        }
+
+        .project__picture--blur & {
+            opacity: 1;
+            filter: blur(20px);
+            transform: scale(1.05);
+            transition:
+                filter var(--duration-fade) ease-out,
+                transform var(--duration-fade) ease-out;
+        }
+
+        .project__picture--blur &--loaded {
+            filter: none;
+            transform: none;
         }
     }
 

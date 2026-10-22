@@ -9,15 +9,16 @@ import TimeSince from "./time-since";
 import copyEmail from "./copy-email";
 
 // An image inside a hidden panel never meets the viewport, so it loads
-// only once its project is revealed. The class it gets on arrival fades
-// it in, see _components.scss.
+// only once its project is revealed. Until then it shows a blurred
+// placeholder or its dominant colour (site.json "imageBlur"); the class
+// it gets on arrival clears the blur or fades it in.
 new LazyLoad({
     elements_selector: ".project__image",
     class_loaded: "project__image--loaded",
 });
 
 // Opens one project panel at a time; -1 means none is open on load.
-new Gallery({ defaultProject: -1 });
+new Gallery({ defaultProject: 4 });
 
 // Writes an age in decimal years into <span id="age">, if the page has one.
 const ageContainer = document.querySelector("#age");

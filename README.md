@@ -45,14 +45,18 @@ Check it with `npm run preview` before shipping it.
         {
             "alt": "",
             "desktop": "/images/resized/project-6/desktop/poster",
-            "mobile": "/images/resized/project-6/mobile/poster"
+            "mobile": "/images/resized/project-6/mobile/poster",
+            "placeholder": "/images/resized/project-6/placeholder/poster",
+            "color": "rgb(136, 200, 232)",
+            "width": 2000,
+            "height": 1600
         }
     ]
     ```
 
 Give each image an `alt` text. It is kept when images are processed again.
 Note that projects show in the order of the file. To remove one, delete its entry and its folder.
-Do not edit `desktop` and `mobile`.
+Do not edit `desktop`, `mobile`, `placeholder`, `color`, `width` and `height`.
 
 \*For now, only one image per project is allowed. This is by design, as I really wanted to keep it as simple as possible.
 Nevertheless, a carousel component will soon be added to this setup, to be used as an alternative when a project has more than one image.
@@ -61,7 +65,8 @@ Nevertheless, a carousel component will soon be added to this setup, to be used 
 
 Images are processed automatically when you start `npm run dev` or run `npm run build`.
 In order to avoid unnecessary use of resources, only new or changed images are included in the transformation pipeline.
-Each image in `src/assets/images` is transformed into two sizes (1800px for large screens, 900px for phones) and three formats (JPG, WebP, and AVIF).
+Each image in `src/assets/images` is transformed into three sizes (1800px for large screens, 900px for phones, 32px for the placeholder) and three formats (JPG, WebP, and AVIF).
+While an image loads, its frame shows the image's dominant colour. Set `"imageBlur": true` in `src/data/site.json` to show a blurred version of the image instead.
 Accepted formats for originals are JPG, PNG, TIFF, WebP, and AVIF. 2000px wide is enough, given that the output never goes above 1800px.
 
 

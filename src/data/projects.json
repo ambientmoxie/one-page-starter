@@ -10,7 +10,11 @@
             {
                 "alt": "",
                 "desktop": "/images/resized/project-1/desktop/project-1",
-                "mobile": "/images/resized/project-1/mobile/project-1"
+                "mobile": "/images/resized/project-1/mobile/project-1",
+                "placeholder": "/images/resized/project-1/placeholder/project-1",
+                "color": "rgb(136, 200, 232)",
+                "width": 2000,
+                "height": 1600
             }
         ]
     },
@@ -25,7 +29,11 @@
             {
                 "alt": "",
                 "desktop": "/images/resized/project-2/desktop/project-2",
-                "mobile": "/images/resized/project-2/mobile/project-2"
+                "mobile": "/images/resized/project-2/mobile/project-2",
+                "placeholder": "/images/resized/project-2/placeholder/project-2",
+                "color": "rgb(200, 216, 232)",
+                "width": 2000,
+                "height": 1600
             }
         ]
     },
@@ -40,7 +48,11 @@
             {
                 "alt": "",
                 "desktop": "/images/resized/project-3/desktop/project-3",
-                "mobile": "/images/resized/project-3/mobile/project-3"
+                "mobile": "/images/resized/project-3/mobile/project-3",
+                "placeholder": "/images/resized/project-3/placeholder/project-3",
+                "color": "rgb(104, 168, 168)",
+                "width": 2000,
+                "height": 1600
             }
         ]
     },
@@ -55,7 +67,11 @@
             {
                 "alt": "",
                 "desktop": "/images/resized/project-4/desktop/project-4",
-                "mobile": "/images/resized/project-4/mobile/project-4"
+                "mobile": "/images/resized/project-4/mobile/project-4",
+                "placeholder": "/images/resized/project-4/placeholder/project-4",
+                "color": "rgb(216, 232, 232)",
+                "width": 2000,
+                "height": 1600
             }
         ]
     },
@@ -70,7 +86,11 @@
             {
                 "alt": "",
                 "desktop": "/images/resized/project-5/desktop/project-5",
-                "mobile": "/images/resized/project-5/mobile/project-5"
+                "mobile": "/images/resized/project-5/mobile/project-5",
+                "placeholder": "/images/resized/project-5/placeholder/project-5",
+                "color": "rgb(120, 152, 168)",
+                "width": 2000,
+                "height": 1600
             }
         ]
     }
