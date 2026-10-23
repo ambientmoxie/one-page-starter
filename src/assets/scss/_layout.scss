@@ -3,7 +3,10 @@
 .layout {
     max-width: var(--layout-max-width);
     margin-inline: auto;
+}
 
+.layout,
+.layout > main {
     > :not(:last-child) {
         margin-bottom: var(--space-l);
     }
