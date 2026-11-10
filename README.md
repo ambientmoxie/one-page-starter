@@ -67,9 +67,9 @@ Nevertheless, a carousel component will soon be added to this setup, to be used 
 ## Process the images
 
 Images are processed automatically when you start `npm run dev` or run `npm run build`.
-In order to avoid unnecessary use of resources, only new or changed images are included in the transformation pipeline.
+In order to avoid unnecessary use of resources, only new or changed images are included in the transformation pipeline. To force every image to be processed again (for example after changing the encoder settings), delete `src/public/images/resized`.
 Each output file name ends with a short hash of the original, so an edited image gets a new URL and visitors never see an old cached copy. Outputs of removed or replaced images are deleted.
-Each image in `src/assets/images` is transformed into three sizes (1800px for large screens, 900px for phones, 32px for the placeholder) and three formats (JPG, WebP, and AVIF).
+Each image in `src/assets/images` is transformed into two sizes (1800px for large screens, 900px for phones) and three formats (JPG, WebP, and AVIF), plus a 32px JPG placeholder.
 While an image loads, its frame shows the image's dominant colour. Set `"imageBlur": true` in `src/data/site.json` to show a blurred version of the image instead.
 Accepted formats for originals are JPG, PNG, TIFF, WebP, and AVIF. 2000px wide is enough, given that the output never goes above 1800px.
 
