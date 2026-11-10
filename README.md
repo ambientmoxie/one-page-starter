@@ -44,9 +44,9 @@ Check it with `npm run preview` before shipping it.
     "images": [
         {
             "alt": "",
-            "desktop": "/images/resized/project-6/desktop/poster",
-            "mobile": "/images/resized/project-6/mobile/poster",
-            "placeholder": "/images/resized/project-6/placeholder/poster",
+            "desktop": "/images/resized/project-6/desktop/poster-1a2b3c4d",
+            "mobile": "/images/resized/project-6/mobile/poster-1a2b3c4d",
+            "placeholder": "/images/resized/project-6/placeholder/poster-1a2b3c4d",
             "color": "rgb(136, 200, 232)",
             "width": 2000,
             "height": 1600
@@ -65,6 +65,7 @@ Nevertheless, a carousel component will soon be added to this setup, to be used 
 
 Images are processed automatically when you start `npm run dev` or run `npm run build`.
 In order to avoid unnecessary use of resources, only new or changed images are included in the transformation pipeline.
+Each output file name ends with a short hash of the original, so an edited image gets a new URL and visitors never see an old cached copy. Outputs of removed or replaced images are deleted.
 Each image in `src/assets/images` is transformed into three sizes (1800px for large screens, 900px for phones, 32px for the placeholder) and three formats (JPG, WebP, and AVIF).
 While an image loads, its frame shows the image's dominant colour. Set `"imageBlur": true` in `src/data/site.json` to show a blurred version of the image instead.
 Accepted formats for originals are JPG, PNG, TIFF, WebP, and AVIF. 2000px wide is enough, given that the output never goes above 1800px.

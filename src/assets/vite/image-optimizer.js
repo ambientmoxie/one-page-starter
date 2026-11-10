@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
@@ -35,6 +36,8 @@ const SOURCE_EXTS = [
 // Reads <sourceDir>/**, writes each image in three sizes and three formats to
 // <outputDir>/<same subfolders>/<size>/, mirroring the source structure.
 // An image is re-encoded only when its source is newer than its outputs.
+// Output names carry a hash of the source, so an edited image gets a new
+// URL and browsers never serve a stale cached copy.
 // Once everything is generated, each project's image paths are written back
 // into projects.json, so the templates never have to guess a filename.
 export default function imageOptimizer({
@@ -45,7 +48,9 @@ export default function imageOptimizer({
 }) {
     return {
         name: "image-optimizer",
-        async buildStart() {
+        // config, not buildStart: Vite lists the public folder before
+        // buildStart, and would then trip over the stale files removed here.
+        async config() {
             // Check if source directory exist. Stops here if it does not.
             if (!fs.existsSync(sourceDir)) return;
 
@@ -61,23 +66,27 @@ export default function imageOptimizer({
             // "<folder>/<basename>" -> its dominant colour (CSS rgb()) and
             // source dimensions, so the frame holds its shape before loading.
             const details = {};
+            // Every output this build expects; anything else is stale.
+            const expected = new Set();
 
             for (const image of images) {
                 const { dir, name } = path.parse(image);
                 (generated[dir] ??= []).push(name);
                 const source = path.join(sourceDir, image);
+                const hashed = `${name}-${hashFile(source)}`;
 
                 // shortcut: reads every source on each build, cache it if builds get slow.
                 const [{ dominant: { r, g, b } }, { width, height }] =
                     await Promise.all([sharp(source).stats(), sharp(source).metadata()]);
-                details[`${dir}/${name}`] = { color: `rgb(${r}, ${g}, ${b})`, width, height };
+                details[`${dir}/${name}`] = { hashed, color: `rgb(${r}, ${g}, ${b})`, width, height };
 
                 for (const { w, dir: size } of SIZES) {
                     const target = path.join(outputDir, dir, size);
                     fs.mkdirSync(target, { recursive: true });
 
                     const conversions = FORMATS.flatMap(({ ext, encode }) => {
-                        const output = path.join(target, `${name}.${ext}`);
+                        const output = path.join(target, `${hashed}.${ext}`);
+                        expected.add(output);
 
                         // Returning [] drops this one from the batch.
                         if (isFresh(source, output)) return [];
@@ -89,6 +98,7 @@ export default function imageOptimizer({
                 }
             }
 
+            removeStale(outputDir, expected);
             writeProjectPaths({ generated, details, publicPath, projectsFile });
         },
     };
@@ -102,6 +112,26 @@ function isFresh(source, output) {
     );
 }
 
+// First 8 hex chars of the file's MD5: enough to tell versions apart.
+function hashFile(file) {
+    return crypto
+        .createHash("md5")
+        .update(fs.readFileSync(file))
+        .digest("hex")
+        .slice(0, 8);
+}
+
+// Delete outputs no source produces any more (older hashes, removed
+// images), so they are not shipped with the build.
+function removeStale(outputDir, expected) {
+    for (const file of fs.readdirSync(outputDir, { recursive: true })) {
+        const output = path.join(outputDir, file);
+        if (fs.statSync(output).isFile() && !expected.has(output)) {
+            fs.rmSync(output);
+        }
+    }
+}
+
 // Replace each project's "images" with the paths just generated for it,
 // keeping any alt text already written against the same filename.
 function writeProjectPaths({ generated, details, publicPath, projectsFile }) {
@@ -109,20 +139,24 @@ function writeProjectPaths({ generated, details, publicPath, projectsFile }) {
     const projects = JSON.parse(before);
 
     for (const project of projects) {
+        // Keyed by the name without its hash, so alts survive an image update.
         const previousAlt = Object.fromEntries(
             (project.images ?? []).map((image) => [
-                path.basename(image.mobile ?? ""),
+                path.basename(image.mobile ?? "").replace(/-[0-9a-f]{8}$/, ""),
                 image.alt ?? "",
             ]),
         );
 
-        project.images = (generated[project.path] ?? []).sort().map((name) => ({
-            alt: previousAlt[name] ?? "",
-            desktop: `${publicPath}/${project.path}/desktop/${name}`,
-            mobile: `${publicPath}/${project.path}/mobile/${name}`,
-            placeholder: `${publicPath}/${project.path}/placeholder/${name}`,
-            ...details[`${project.path}/${name}`],
-        }));
+        project.images = (generated[project.path] ?? []).sort().map((name) => {
+            const { hashed, ...detail } = details[`${project.path}/${name}`];
+            return {
+                alt: previousAlt[name] ?? "",
+                desktop: `${publicPath}/${project.path}/desktop/${hashed}`,
+                mobile: `${publicPath}/${project.path}/mobile/${hashed}`,
+                placeholder: `${publicPath}/${project.path}/placeholder/${hashed}`,
+                ...detail,
+            };
+        });
     }
 
     // Only touch the file when something actually changed, so the dev
