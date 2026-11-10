@@ -34,9 +34,15 @@
 
     <p class="project__description">{{description}}</p>
 
-    {{#if liveUrl}}
-        <a class="project__link" href="{{liveUrl}}" rel="noopener" target="_blank">
-            Visit live project
-        </a>
+    {{#if links}}
+        <ul class="link-list" role="list">
+            {{#each links}}
+                <li class="link-list__item">
+                    <a class="link-list__link" href="{{url}}" rel="noopener" target="_blank">
+                        {{#if wording}}{{wording}}{{else}}Visit live project{{/if}}
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
     {{/if}}
 </section>

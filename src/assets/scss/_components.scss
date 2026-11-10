@@ -144,21 +144,16 @@
             transform: none;
         }
     }
-
-    &__link {
-        @include external-link;
-    }
 }
 
-.social {
+// Dash-led list of outgoing links: social profiles, a project's links.
+.link-list {
+    display: grid;
+    gap: var(--space-2xs);
+
     &__item::before {
         content: "—";
         margin-right: var(--space-xs);
-    }
-
-    &__list {
-        display: grid;
-        gap: var(--space-2xs);
     }
 
     &__link {

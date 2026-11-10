@@ -30,13 +30,16 @@ Check it with `npm run preview` before shipping it.
         "name": "Name of the project",
         "date": "2025-11-19",
         "path": "project-6",
-        "liveUrl": "https://example.com",
+        "links": [
+            { "url": "https://example.com" },
+            { "url": "https://github.com/example", "wording": "Source code" }
+        ],
         "description": "A few lines about the project."
     }
     ```
 
     - `path` must match the folder name exactly.
-    - `liveUrl` is optional. Without it, no link is shown.
+    - `links` is optional. Each link reads “Visit live project” unless it has a `wording`. Without links, none are shown.
 
 3. Restart `npm run dev` (press `Ctrl + C`, then run it again). The images are processed and `images` is filled in for you, adding this to the project:
 
