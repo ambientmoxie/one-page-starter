@@ -151,11 +151,6 @@
     display: grid;
     gap: var(--space-2xs);
 
-    &__item::before {
-        content: "—";
-        margin-right: var(--space-xs);
-    }
-
     &__link {
         @include external-link;
     }
